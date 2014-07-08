@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS Heroes #1</title>
+
+    <meta name="description" content="First meeting for JS heros">
+    <meta name="author" content="Bartlomiej Witczak">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+    <section>
+        <h1>JS heroes #1</h1>
+        <h3>Basics - Types, Objects</h3>
+        <p>
+            <small>Created by Bartlomiej Witczak</small>
+        </p>
+    </section>
+    <section>
+        <h2>"Optional" semicolons</h2>
+        <h4>Automatic semicolon insertion - ASI</h4>
+        <pre><code data-trim contenteditable>
+return
+true;
+
+return
+{
+    selected: true
+};
+        </code></pre>
+    </section>
+    <section>
+        <section>
+            <h1>Types</h1>
+        </section>
+        <section>
+            <ul>
+                <li>Numbers</li>
+                <li class="fragment">Date</li>
+                <li class="fragment">String</li>
+                <li class="fragment">Boolean</li>
+                <li class="fragment">null & undefined</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Numbers</h2>
+            <h4>No distinction between integer or double</h4>
+        </section>
+        <section>
+            <h2>String</h2>
+            <pre><code class="data-trim contenteditable">
+"This is double quotes"
+'Single quote has the same effect'
+"This is Adam's book"
+            </code></pre>
+        </section>
+        <section>
+            <h2>Boolean</h2>
+            <h4>true & false</h4>
+            <h4>falsy values - null, undefined, 0, -0, NaN, ""</h4>
+        </section>
+        <section>
+            <h2>null & undefined</h2>
+            <pre><code class="data-trim contenteditable">
+typeof(null)
+typeof(undefined)
+null == undefined
+null === undefined
+            </code></pre>
+        </section>
+        <section>
+            <h2>null & undefined</h2>
+            <pre><code class="data-trim contenteditable">
+var dog = null;
+var cat;
+            </code></pre>
+        </section>
+    </section>
+    <section>
+        <section>
+            <h2>Equality</h2>
+            <pre><code data-trim contenteditable>
+"0" == 0
+"0" === 0
+0 == false
+"0" == false
+2 == true
+1 == true
+            </code></pre>
+        </section>
+        <section>
+            <h2>Object equality</h2>
+            <pre><code data-trim contenteditable>
+var obj1 = { a: 1};
+var obj2 = { a: 1};
+var obj3 = { b: 1};
+obj1 == obj2
+obj1 === obj2
+obj1 == obj3
+obj1 === obj3
+            </code></pre>
+        </section>
+    </section>
+    <section>
+        <section>
+            <h2>Variables</h2>
+            <pre><code data-trim contenteditable>
+var roman = "Roman Testowy";
+var age = 21;
+var sayHello  = function(){};
+            </code></pre>
+        </section>
+        <section>
+            <h2>Scope</h2>
+            <pre><code class="data-trim contenteditable">
+roman = "Roman Testowy";
+function scope() {
+    tomek = "Tomek Zwyciezca";
+    console.log("My name is " + roman);
+    console.log("My frient is " + tomek);
+    var sayGoodbye = function() {
+        console.log("Say goodbye to " + tomek);
+    };
+}
+
+console.log("My name is " + roman);
+console.log("My frient is " + tomek);
+            </code></pre>
+        </section>
+        <section>
+            <h2>Correct scope</h2>
+            <pre><code class="data-trim contenteditable">
+var roman = "Roman Testowy";
+function scope() {
+    var tomek = "Tomek Zwyciezca";
+    console.log("My name is " + roman);
+    console.log("My frient is " + tomek);
+    var sayGoodbye = function() {
+        console.log("Say goodbye to " + tomek);
+    };
+}
+
+console.log("My name is " + roman);
+console.log("My frient is " + tomek);
+            </code></pre>
+        </section>
+        <section>
+            <h2>Hoisting</h2>
+            <pre><code class="data-trim contenteditable">
+console.log(roman);
+console.log(i);
+
+for(var i = 0; i < 5; i++) {
+    var roman = "Roman Testowy";
+    console.log(roman + " hmm " + i);
+}
+
+console.log(roman);
+console.log(i);
+            </code></pre>
+        </section>
+    </section>
+    <section>
+        <section>
+            <h1>Objects</h1>
+        </section>
+        <section>
+            <h2>Object literals</h2>
+            <pre><code class="contenteditable">
+var empty = {};
+var developer = {
+    firstName: 'Roman',
+    lastName: 'Testowy',
+    position: 'Software ninja',
+    age: 33,
+    languages: [
+        'Java',
+        'JS',
+        'Scala'
+    ]
+};
+            </code></pre>
+        </section>
+        <section>
+            <h2>new keyword</h2>
+                <pre><code data-trim contenteditable>
+var empty = new Object();
+var today = new Date();
+                </code></pre>
+        </section>
+        <section>
+            <h2>Object.create()</h2>
+            <pre><code class="contenteditable">
+var empty = Object.create(Object.prototype);
+var developer = Object.create({name: 'Roman Testowy'});
+            </code></pre>
+        </section>
+        <section>
+            <h2>Object properties</h2>
+            <pre><code class="contenteditable">
+var developer = {
+    firstName: 'Roman',
+    lastName: 'Testowy',
+    position: 'Software ninja',
+    age: 33,
+    languages: [
+        'Java',
+        'JS',
+        'Scala'
+    ]
+};
+
+console.log(developer.name);
+console.log(developer.position);
+            </code></pre>
+        </section>
+    </section>
+</div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        dependencies: [
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ]
+    });
+
+</script>
+</body>
+</html>
