@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS Heroes #2</title>
+
+    <meta name="description" content="First meeting for JS heros">
+    <meta name="author" content="Bartlomiej Witczak">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+    <h1>JS heroes #2</h1>
+    <h3>Arrays, Functions</h3>
+    <p>
+        <small>Created by Bartlomiej Witczak</small>
+    </p>
+</section>
+<section>
+    <section>
+        <h1>Arrays</h1>
+    </section>
+    <section>
+        <h3>Creating arrays - array literal</h3>
+        <pre><code data-trim contenteditable>
+var empty = [];
+var even = [2, 4, 6, 8];
+var dynamic = [2, "kotek", {}, true];
+var multidimensional = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+        </code></pre>
+    </section>
+    <section>
+        <h3>Quiz #1</h3>
+        <pre><code data-trim contenteditable>
+new Array();
+new Array(5);
+new Array(5, 6, 7);
+new Array(1, 2, true, "piesek");
+        </code></pre>
+    </section>
+    <section>
+        <h3>Access array elements</h3>
+        <pre><code data-trim contenteditable>
+var sample = ["a", "b", "c", "d"];
+sample[0];
+sample[5];
+sample[-2];
+        </code></pre>
+    </section>
+    <section>
+        <h3>Setting array elements</h3>
+        <pre><code data-trim contenteditable>
+var sample = ["a", "b", "c", "d"];
+sample[0] = "piesek";
+sample[5] = "kotek";
+sample["6"] = "zygmunt wspanialy";
+sample[3.14] = "aneta niemila";
+sample["hmm"] = "roman testowy";
+        </code></pre>
+    </section>
+    <section>
+        <h3>Array length</h3>
+        <pre><code data-trim contenteditable>
+var sample = ["a", "b", "c", "d"];
+sample.length;
+sample.length = 3;
+sample.length = 0;
+sample.length = 4;
+
+sample = [];
+sample[1000] = "roman";
+sample.length;
+        </code></pre>
+    </section>
+    <section>
+        <h3>Iterating</h3>
+        <pre><code data-trim contenteditable>
+var sample = [1, 2, 3, 5, 8, 13];
+sample[20] = 153;
+
+for(var i = 0; i < sample.length; i++) console.log(sample[i]);
+        </code></pre>
+    </section>
+    <section>
+        <h3>Array methods</h3>
+        <pre><code data-trim contenteditable>
+var sample = [1, 2, 3, 5, 8, 13];
+sample.join(" ");
+sample.reverse();
+sample.sort(function(a, b){
+    return b - a;
+});
+sample.concat([1, 2, 3]);
+sample.slice(0, 3);
+sample.splice(4);
+sample.push(1001);
+sample.pop();
+sample.shift(331);
+sample.unshift();
+        </code></pre>
+    </section>
+    <section>
+        <h3>Array methods - ECMAScript 5</h3>
+        <pre><code data-trim contenteditable>
+var sample = [1, 2, 3, 5, 8, 13];
+sample.forEach(function(elem) { console.log(elem); });
+sample.map(function(elem) { return elem + 2; });
+sample.filter(function(elem) { return elem < 6; });
+sample.every(function(elem) { return elem < 6; });
+sample.some(function(elem) { return elem < 6; });
+sample.reduce(function(sum, elem) { return sum+elem; });
+sample.reduceRight(function(sum, elem) { return sum+elem; });
+sample.indexOf(3);
+sample.lastIndexOf(5);
+        </code></pre>
+    </section>
+</section>
+<section>
+    <section>
+        <h1>Functions</h1>
+    </section>
+    <section>
+        <h3>Defining</h3>
+        <pre><code data-trim contenteditable>
+function welcome(name) {
+    console.log("Welcome" + name);
+}
+
+var factorial = function(n) {
+    if(n <= 1) return 1;
+    return n * factorial(n - 1);
+};
+        </code></pre>
+    </section>
+    <section>
+        <h3>Quiz</h3>
+        <pre><code data-trim contenteditable>
+welcome();
+
+var welcome = function() {
+    console.log("Welcome to function expression");
+};
+
+welcome();
+
+function welcome() {
+    console.log("Welcome to function declaration");
+}
+
+welcome();
+        </code></pre>
+    </section>
+    <section>
+        <h3>Nested functions</h3>
+        <pre><code data-trim contenteditable>
+function calculateParabole() {
+    function square(x) {
+        return x*x;
+    }
+
+    return square(x) + square(x);
+}
+
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function params</h3>
+        <pre><code data-trim contenteditable>
+var separate = function(array, separator) {
+    return array.join(separator);
+};
+
+separate([1, 2, 3, 4], "-");
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function params - optional</h3>
+        <pre><code data-trim contenteditable>
+var separate = function(array, separator) {
+    if(separator === undefined) separator = "-";
+    return array.join(separator);
+};
+
+separate([1, 2, 3, 4], "-");
+separate([1, 2, 3, 4]);
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function params - arguments</h3>
+        <pre><code data-trim contenteditable>
+var addElements = function(array) {
+    var copy = [];
+    array.forEach(function(elem) { copy.push(elem); });
+    for(var i = 1; i < arguments.length; i++)
+        copy.push(arguments[i]);
+
+    return copy;
+};
+
+addElements([]);
+addElements([], 1, 2, 3, 4);
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function as namespace</h3>
+        <pre><code data-trim contenteditable>
+function module() {
+    var array = [];
+    var user = "roman testowy";
+}
+
+module();
+        </code></pre>
+    </section>
+    <section>
+        <h3>Immediately invoked function expression</h3>
+        <pre><code data-trim contenteditable>
+(function {
+    var array = [];
+    var user = "roman testowy";
+}());
+        </code></pre>
+    </section>
+</section>
+</div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        dependencies: [
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ]
+    });
+
+</script>
+</body>
+</html>
