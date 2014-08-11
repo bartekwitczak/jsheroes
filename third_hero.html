@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS Heroes #3</title>
+
+    <meta name="description" content="Third meeting for JS heros">
+    <meta name="author" content="Bartlomiej Witczak">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+    <h1>JS heroes #3</h1>
+    <h3>Closures, this</h3>
+    <p>
+        <small>Created by Bartlomiej Witczak</small>
+    </p>
+</section>
+<section>
+    <section>
+        <h1>Closures</h1>
+    </section>
+    <section>
+        <pre><code data-trim contenteditable>
+            var scope = "global scope";
+            function checkscope() {
+                var scope = "local scope";
+                function f() { return scope; }
+                return f;
+            }
+            checkscope()();
+        </code></pre>
+    </section>
+    <section>
+        <h3>Functions are executed using the scope chain that was in effect when they were defined</h3>
+    </section>
+    <section>
+        <h3>CODING</h3>
+        <h4>Using closures define uniqueIntegerGenerator - like id generator in DB.</h4>
+    </section>
+    <section>
+        <h3>SAMPLE SOLUTION</h3>
+        <pre><code data-trim contenteditable>
+            var unique = (function() {
+                var counter = 0;
+                return function() {
+                    return counter++;
+                };
+            }());
+        </code></pre>
+    </section>
+    <section>
+        <h3>Encapsulate data</h3>
+        <pre><code data-trim contenteditable>
+            function Car(maxSpeed) {
+                var currentSpeed = 0;
+
+                return {
+                    accelerate: function(acceleration) {
+                        currentSpeed += acceleration;
+                        currentSpeed = currentSpeed > maxSpeed ? maxSpeed : currentSpeed;
+                    },
+                    slowDown: function(deceleration) {
+                        currentSpeed += deceleration;
+                    }
+                };
+            }
+        </code></pre>
+    </section>
+    <section>
+        <h3>CODING</h3>
+        <h4>Create array of hundred functions, which logs their index number</h4>
+        <pre><code data-trim contenteditable>
+            var f = createFunctionsCountingToTen();
+            f[0](); // 0
+            f[1](); // 1
+            ...
+            f[99](); // 99
+        </code></pre>
+    </section>
+    <section>
+        <h3>Common mistake</h3>
+        <pre><code data-trim contenteditable>
+            function createFunctionsCountingToTen(){
+                var functions = [];
+                for (var i = 0; i < 100; i++) {
+                    functions[i] = function() { console.log(i); };
+                }
+
+                return functions;
+            }
+        </code></pre>
+    </section>
+    <section>
+        <h3>Common mistake - fixed</h3>
+        <pre><code data-trim contenteditable>
+            function makeHelper(index) {
+                return function() {
+                    console.log(index);
+                };
+            }
+
+            function createFunctionsCountingToTen(){
+                var functions = [];
+                for (var i = 0; i < 100; i++) {
+                    functions[i] = makeHelper(i);
+                }
+
+                return functions;
+            }
+        </code></pre>
+    </section>
+</section>
+<section>
+    <section>
+        <h1>this</h1>
+    </section>
+    <section>
+        <h3>Definition</h3>
+        <h4>The value of <i>this</i> is determined by how function is called</h4>
+        <ul>
+            <li>global context</li>
+            <li>function context</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Global context</h3>
+        <pre><code data-trim contenteditable>
+            console.log(this === window);
+
+            this.user = "Roman";
+            console.log(window.user === "Roman");
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function context - simple</h3>
+        <pre><code data-trim contenteditable>
+            function global() { return this; }
+            function strict() { "use strict;" return this; }
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function context - object</h3>
+        <pre><code data-trim contenteditable>
+            var user = {
+                name: "Roman",
+                sayHello: function() { console.log("Hello - said " + this.name); }
+            };
+
+            user.sayHello();
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function context - object</h3>
+        <h4>Only function invocation matters</h4>
+        <pre><code data-trim contenteditable>
+            var sayHello = function() { console.log("Hello - said " + this.name); }
+
+            var user = { name: "Mietek" };
+            user.sayHello = sayHello;
+
+            sayHello();
+            user.sayHello();
+        </code></pre>
+    </section>
+    <section>
+        <h3>Function context - constructor</h3>
+        <pre><code data-trim contenteditable>
+            function Car(maxSpeed) {
+                this.maxSpeed = maxSpeed;
+            }
+
+            var ferrari = new Car(320);
+            console.log(ferrari.maxSpeed);
+
+            var golf = new Car(180);
+            console.log(golf.maxSpeed);
+        </code></pre>
+    </section>
+    <section>
+        <h3>Call and apply</h3>
+        <pre><code data-trim contenteditable>
+            var sayHello = function(to) { console.log(this.name + " says hello to " + to); };
+            var user = { name: "Roman" };
+
+            sayHello.call(user, "Mietek");
+            sayHello.apply(user, ["Mietek"]);
+        </code></pre>
+    </section>
+    <section>
+        <h3>Call and apply</h3>
+        <pre><code data-trim contenteditable>
+            var user = {
+                name: "Roman",
+                sayHello: function(to) { console.log(this.name + " says hello to " + to); }
+            };
+
+            var mietek = { name: "Mietek" };
+
+            user.sayHello.call(mietek, "Kacper");
+            user.sayHello.apply(mietek, ["Kacper"]);
+        </code></pre>
+    </section>
+</section>
+</div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        dependencies: [
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ]
+    });
+
+</script>
+</body>
+</html>
