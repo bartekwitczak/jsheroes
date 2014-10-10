@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>AngularJS Zen</title>
+
+    <meta name="description" content="Modern framework for building responsive web application">
+    <meta name="author" content="Bartlomiej Witczak">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+    <img class="logo" src="http://angularjs.org/img/AngularJS-large.png"/>
+    <div class="slides">
+        <section>
+            <h1>AngularJS Zen</h1>
+            <h3>Modern framework for building responsive web application</h3>
+            <p>
+                <small>Created by Bartlomiej Witczak</small>
+            </p>
+        </section>
+        <section>
+            <h2>Agenda</h2>
+            <ol>
+                <li>Directives</li>
+                <li class="fragment">Two-way-data-binding</li>
+                <li class="fragment">MVW - Model View Whatever</li>
+                <li class="fragment">Modules</li>
+                <li class="fragment">Dependency Injection</li>
+                <li class="fragment">Testability</li>
+            </ol>
+        </section>
+        <section>
+            <section>
+                <h1>Directives</h1>
+            </section>
+            <section>
+                <h2>Teaching HTML new tricks</h2>
+            </section>
+            <section>
+                <h2>Sample directives</h2>
+                <ul>
+                    <li>ng-app</li>
+                    <li class="fragment">ng-model</li>
+                    <li class="fragment">ng-repeat</li>
+                    <li class="fragment">ng-controller</li>
+                    <li class="fragment">ng-view</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Two-way-</h1>
+                <h1>data-binding</h1>
+            </section>
+            <section>
+                <pre><code data-trim contenteditable>
+<div ng-app>
+    Welcome participant: <input type="text" ng-model="name">
+    <h1>Welcome to brownbag session on AngularJs Zen, {{name}}!</h1>
+</div>
+                </code></pre>
+            </section>
+            <section>
+                <h3>Modifications to model update DOM</h3>
+                <h3>Modifications to DOM update model</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>MVW</h1>
+                <h2>(Model View Whatever)</h2>
+            </section>
+            <section>
+                <h3>Declarative template view</h3>
+                <h3>Imperative controller logic</h3>
+                <ul>
+                    <li>tell Controller how to do</li>
+                    <li>tell UI what to do</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Controller</h2>
+                <ul>
+                    <li>provides the behavior</li>
+                    <li>regular JavaScript functions</li>
+                    <li>initialize $scope objects</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Model</h2>
+                <ul>
+                    <li>regular JavaScript objects</li>
+                    <li>assign to $scope to expose for UI</li>
+                </ul>
+            </section>
+            <section>
+                <h2>View</h2>
+                <ul>
+                    <li>HTML used as templating language</li>
+                </ul>
+            </section>
+            <section>
+                <h2>$scope</h2>
+                <ul>
+                    <li>expose the domain model to view - both data and functionality</li>
+                    <li>glue controller and view</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Modules</h1>
+            </section>
+            <section>
+                <h2>Purpose</h2>
+                <ul>
+                    <li>way to modularize application</li>
+                    <li>modules can depend one on another</li>
+                    <li>controllers and services are defined under modules</li>
+                </ul>
+            </section>
+            <section>
+                <pre><code data-trim contenteditable>
+                    angular.module('demoApp', []);
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Dependency Injection</h1>
+            </section>
+            <section>
+                <h2>Benefits</h2>
+                <ul>
+                    <li>modular</li>
+                    <li>testable</li>
+                    <li>customizable</li>
+                </ul>
+            </section>
+            <section>
+                <pre><code data-trim contenteditable>
+angular.module('angularjsZen')
+    .controller('ParticipantsCtrl',
+                    function ($scope, $location, ParticipantsRepository) {
+        ...
+    });
+                </code></pre>
+            </section>
+            <section>
+                <h2>Possible ways of registering service</h2>
+                <ul>
+                    <li>value</li>
+                    <li>service</li>
+                    <li>factory</li>
+                    <li>constant</li>
+                    <li>providers</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Testability</h1>
+            </section>
+            <section>
+                <h2>Jasmine</h2>
+                <h5>http://pivotal.github.io/jasmine/</h5>
+                <pre><code data-trim contenteditable>
+describe('Name of the suite', function () {
+
+    beforeEach(function(){
+        ...
+    });
+
+    it('name of the test', function () {
+        ...
+    });
+});
+                </code></pre>
+            </section>
+            <section>
+                <h2>Karma</h2>
+                <h5>http://karma-runner.github.io/</h5>
+                <ul>
+                    <li>JS test runner</li>
+                    <li>framework agnostic - Jasmine, Mocha, QUnit</li>
+                    <li>test code on real browsers</li>
+                    <li>support headless PhantomJS instance</li>
+                </ul>
+            </section>
+            <section>
+                <h2>angular-mock.js</h2>
+                <p>provides utility functions for testing</p>
+                <ul>
+                    <li>inject</li>
+                    <li>$httpBackend</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>Resources</h2>
+            <ul>
+                <li>http://github.com/jmcunningham/AngularJS-Learning</li>
+                <li>http://todomvc.com/</li>
+                <li>Matering Web Application Development with AngularJS</li>
+            </ul>
+        </section>
+        <section>
+            <h1>That's it!</h1>
+            <h1>Thanks</h1>
+        </section>
+       </div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        dependencies: [
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        ]
+    });
+
+</script>
+</body>
+</html>
